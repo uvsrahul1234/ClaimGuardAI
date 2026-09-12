@@ -1,7 +1,7 @@
 from typing import TypedDict, Annotated, Sequence
 from langchain_core.messages import BaseMessage, HumanMessage, AIMessage
 from langgraph.graph import StateGraph, END
-from langchain_openai import ChatOpenAI
+from langchain_google_genai import ChatGoogleGenerativeAI
 import json
 import os
 
@@ -12,8 +12,8 @@ class BillState(TypedDict):
     translated_summary: str
     suggested_questions: list[str]
 
-# Initialize LLM
-llm = ChatOpenAI(model="gpt-4o", temperature=0)
+# Initialize the Gemini model (Ensure GOOGLE_API_KEY is set in your terminal)
+llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0)
 
 def extract_entities(state: BillState):
     """Simulates RAG and entity extraction to find charges and codes."""
