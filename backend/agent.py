@@ -2,6 +2,9 @@ from typing import TypedDict, Annotated, Sequence
 from langchain_core.messages import BaseMessage, HumanMessage, AIMessage
 from langgraph.graph import StateGraph, END
 from langchain_google_genai import ChatGoogleGenerativeAI
+from dotenv import load_dotenv
+from typing import TypedDict, Annotated, Sequence
+
 import json
 import os
 
@@ -11,6 +14,8 @@ class BillState(TypedDict):
     extracted_data: dict
     translated_summary: str
     suggested_questions: list[str]
+
+load_dotenv() # This reads the .env file and sets the variables
 
 # Initialize the Gemini model (Ensure GOOGLE_API_KEY is set in your terminal)
 llm = ChatGoogleGenerativeAI(model="gemini-2.5-flash", temperature=0)
