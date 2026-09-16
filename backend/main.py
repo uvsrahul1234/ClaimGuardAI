@@ -2,13 +2,13 @@ from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
 from fastapi.middleware.cors import CORSMiddleware
 from agent import run_analysis
+import traceback
 
 app = FastAPI(title="ClaimGuard AI API")
 
-# Allow React frontend to communicate with FastAPI
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["http://localhost:3000"], # React default port
+    allow_origins=["http://localhost:5173", "http://localhost:3000"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
@@ -35,4 +35,8 @@ async def analyze_document(payload: DocumentPayload):
             }
         }
     except Exception as e:
+        # THIS WILL PRINT THE EXACT ERROR IN YOUR TERMINAL
+        print("\n--- ERROR TRACEBACK ---")
+        traceback.print_exc()
+        print("-----------------------\n")
         raise HTTPException(status_code=500, detail=str(e))
