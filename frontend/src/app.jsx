@@ -50,17 +50,18 @@ function App() {
             
             <div>
               <h3 className="font-bold text-gray-700">Plain English Summary:</h3>
-              <ReactMarkdown className="text-gray-600 prose">{results.summary}</ReactMarkdown>
+              {/* Back to a standard paragraph tag, with whitespace-pre-wrap to keep line breaks */}
+              <p className="text-gray-600 whitespace-pre-wrap">{results.summary}</p>
             </div>
 
             <div>
               <h3 className="font-bold text-gray-700">Questions to Ask Your Provider:</h3>
-              {/* We replaced the <ul> map with ReactMarkdown and joined the array */}
-              <ReactMarkdown className="text-gray-600 prose">
-                {Array.isArray(results.questions) 
-                  ? results.questions.join('\n\n') 
-                  : results.questions}
-              </ReactMarkdown>
+              {/* Back to standard HTML bullet points */}
+              <ul className="list-disc pl-5 text-gray-600 space-y-2">
+                {results.questions && results.questions.map((q, i) => (
+                  <li key={i}>{q}</li>
+                ))}
+              </ul>
             </div>
           </div>
         )}
