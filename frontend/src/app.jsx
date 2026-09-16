@@ -27,6 +27,7 @@ function App() {
       <div className="max-w-3xl mx-auto space-y-6">
         <h1 className="text-3xl font-bold text-blue-900">ClaimGuard AI Assistant</h1>
         <p className="text-gray-600">Paste your medical bill or EOB text below for a plain-language analysis.</p>
+        {/* <ReactMarkdown className="text-gray-600 prose">Paste your medical bill or EOB text below for a plain-language analysis.</ReactMarkdown> */}
         
         <textarea
           className="w-full p-4 border rounded shadow-sm h-48"
@@ -49,17 +50,21 @@ function App() {
             
             <div>
               <h3 className="font-bold text-gray-700">Plain English Summary:</h3>
-              <p className="text-gray-600">{results.summary}</p>
+              <ReactMarkdown className="text-gray-600 prose">{results.summary}</ReactMarkdown>
             </div>
 
             <div>
               <h3 className="font-bold text-gray-700">Questions to Ask Your Provider:</h3>
-              <ul className="list-disc pl-5 text-gray-600">
-                {results.questions.map((q, i) => <li key={i}>{q}</li>)}
-              </ul>
+              {/* We replaced the <ul> map with ReactMarkdown and joined the array */}
+              <ReactMarkdown className="text-gray-600 prose">
+                {Array.isArray(results.questions) 
+                  ? results.questions.join('\n\n') 
+                  : results.questions}
+              </ReactMarkdown>
             </div>
           </div>
         )}
+
       </div>
     </div>
   );
