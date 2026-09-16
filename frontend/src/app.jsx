@@ -9,7 +9,7 @@ function App() {
   const handleAnalyze = async () => {
     setLoading(true);
     try {
-      const response = await fetch('http://localhost:8000/api/analyze', {
+      const response = await fetch('https://claimguardai-wvjm.onrender.com/api/analyze', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ text: documentText }),
